@@ -49,7 +49,7 @@ message IsDistributorRequest {
 }
 
 message IsDistributorResponse {
-    bool is_orginiser = 1;
+    bool is_distributor = 1;
 }
 
 message IsBuyerRequest {
