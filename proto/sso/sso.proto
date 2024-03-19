@@ -21,7 +21,7 @@ message RegisterRequest {
 }
 
 message RegisterResponse {
-    int64 user_id = 1;
+    bytes user_id = 1;
 }
 
 
@@ -37,7 +37,7 @@ message LoginResponse {
 
 
 message IsOrginiserRequest{
-    int64 user_id = 1;
+    bytes user_id = 1;
 }
 
 message IsOrginiserResponse {
@@ -46,7 +46,7 @@ message IsOrginiserResponse {
 
 
 message IsDistributorRequest {
-    int64 user_id = 1;
+    bytes user_id = 1;
 }
 
 message IsDistributorResponse {
@@ -55,7 +55,7 @@ message IsDistributorResponse {
 
 
 message IsBuyerRequest {
-    int64 user_id = 1;
+    bytes user_id = 1;
 }
 
 message IsBuyerResponse {
@@ -64,7 +64,7 @@ message IsBuyerResponse {
 
 
 message IsAdminRequest {
-    int64 user_id = 1;
+    bytes user_id = 1;
 }
 
 message IsAdminResponse {
