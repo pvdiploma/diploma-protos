@@ -1,0 +1,103 @@
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+
+package event;
+
+option go_package = "posokhov.event.v1;eventv1";
+
+service EventService {
+    rpc AddEvent (AddEventRequest) returns (AddEventResponse);
+    rpc UpdateEvent (UpdateEventRequest) returns (UpdateEventResponse);
+    rpc DeleteEvent (DeleteEventRequest) returns (DeleteEventResponse);
+    rpc GetEvent (GetEventRequest) returns (GetEventResponse);
+    rpc GetAllEvents (GetAllEventsRequest) returns (GetAllEventsResponse);
+    rpc GetPrevEvents (GetPrevEventsRequest) returns (GetPrevEventsResponse);
+}
+
+message Event {
+    int64 event_id = 1;
+    int64 owner_id = 2;
+    string name = 3;
+    string description = 4;
+    string country = 5;
+    string city = 6;
+    string place = 7;
+    google.protobuf.Timestamp date = 8;
+    uint32 ticket_amount = 9;
+    string age = 10;
+    repeated EventCategory categories = 11;
+}
+
+message EventCategory {
+    int64 id = 1;
+    int64 event_id = 2;
+    string category = 3;
+    uint32 price = 4;
+    uint32 amount = 5;
+}
+
+message AddEventRequest {
+    string name = 1;
+    string description = 2;
+    string country = 3;
+    string city = 4;
+    string place = 5;
+    google.protobuf.Timestamp date = 6;
+    uint32 ticket_amount = 7;
+    string age = 8;
+    repeated EventCategory categories = 9;
+}
+
+message UpdateEventRequest {
+    int64 event_id = 1;
+    string name = 2;
+    string description = 3;
+    string country = 4;
+    string city = 5;
+    string place = 6;
+    google.protobuf.Timestamp date = 7;
+    uint32 ticket_amount = 8;
+    string age = 9;
+    repeated EventCategory categories = 10;
+}
+
+message GetEventRequest {
+    int64 event_id = 1;
+}
+
+message DeleteEventRequest {
+    int64 event_id = 1;
+}
+
+message GetAllEventsRequest {
+
+}
+
+message GetPrevEventsRequest {
+
+}
+
+message AddEventResponse {
+    int64 event_id = 1;
+}
+
+message UpdateEventResponse {
+    int64 event_id = 1;
+}
+
+message DeleteEventResponse {
+    int64 event_id = 1;
+}
+
+message GetEventResponse {
+    Event event = 1;
+}
+
+message GetAllEventsResponse {
+    repeated Event events = 1;
+}
+
+message GetPrevEventsResponse {
+    repeated Event events = 1;
+}
