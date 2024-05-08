@@ -19,6 +19,7 @@ message AddTicketRequest {
     string surrname = 3;
     string patronymic = 4;
     uint32 discount = 5;
+    string email = 6;
 }
 
 message AddTicketResponse {
