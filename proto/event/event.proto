@@ -24,7 +24,7 @@ message Event {
     string city = 6;
     string place = 7;
     google.protobuf.Timestamp date = 8;
-    uint32 ticket_amount = 9;
+    int32 ticket_amount = 9;
     string age = 10;
     repeated EventCategory categories = 11;
 }
@@ -34,7 +34,7 @@ message EventCategory {
     int64 event_id = 2;
     string category = 3;
     uint32 price = 4;
-    uint32 amount = 5;
+    int32 amount = 5;
 }
 
 message AddEventRequest {
