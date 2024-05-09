@@ -14,12 +14,13 @@ service TicketService {
 //todo add message Ticket with extendend fields 
 
 message AddTicketRequest {
-    int64 event_category_id = 1;
-    string name = 2;
-    string surname = 3;
-    string patronymic = 4;
-    uint32 discount = 5;
-    string email = 6;
+    int64 event_id = 1;
+    int64 event_category_id = 2;
+    string name = 3;
+    string surname = 4;
+    string patronymic = 5;
+    uint32 discount = 6;
+    string email = 7;
 }
 
 message AddTicketResponse {
