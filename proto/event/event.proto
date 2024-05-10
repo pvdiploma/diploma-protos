@@ -11,7 +11,7 @@ service EventService {
     rpc UpdateEvent (UpdateEventRequest) returns (UpdateEventResponse);
     rpc DeleteEvent (DeleteEventRequest) returns (DeleteEventResponse);
     rpc GetEvent (GetEventRequest) returns (GetEventResponse);
-    rpc GetEventByCategoryId (GetEventCategoryRequest) returns (GetEventCategoryResponse);
+    rpc GetEventByCategoryId (GetEventByCategoryIdRequest) returns (GetEventByCategoryIdResponse);
     rpc GetAllEvents (GetAllEventsRequest) returns (GetAllEventsResponse);
     rpc GetPrevEvents (GetPrevEventsRequest) returns (GetPrevEventsResponse);
 }
@@ -70,7 +70,7 @@ message GetEventRequest {
     int64 event_id = 1;
 }
 
-message GetEventCategoryRequest {
+message GetEventByCategoryIdRequest {
     int64 event_category_id = 1;
 }
 
@@ -102,8 +102,8 @@ message GetEventResponse {
     Event event = 1;
 }
 
-message GetEventCategoryResponse {
-    EventCategory event_category = 1;
+message GetEventByCategoryIdResponse {
+    Event event = 1;
 }
 
 message GetAllEventsResponse {

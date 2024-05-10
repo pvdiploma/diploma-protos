@@ -26,7 +26,7 @@ type EventServiceClient interface {
 	UpdateEvent(ctx context.Context, in *UpdateEventRequest, opts ...grpc.CallOption) (*UpdateEventResponse, error)
 	DeleteEvent(ctx context.Context, in *DeleteEventRequest, opts ...grpc.CallOption) (*DeleteEventResponse, error)
 	GetEvent(ctx context.Context, in *GetEventRequest, opts ...grpc.CallOption) (*GetEventResponse, error)
-	GetEventByCategoryId(ctx context.Context, in *GetEventCategoryRequest, opts ...grpc.CallOption) (*GetEventCategoryResponse, error)
+	GetEventByCategoryId(ctx context.Context, in *GetEventByCategoryIdRequest, opts ...grpc.CallOption) (*GetEventByCategoryIdResponse, error)
 	GetAllEvents(ctx context.Context, in *GetAllEventsRequest, opts ...grpc.CallOption) (*GetAllEventsResponse, error)
 	GetPrevEvents(ctx context.Context, in *GetPrevEventsRequest, opts ...grpc.CallOption) (*GetPrevEventsResponse, error)
 }
@@ -75,8 +75,8 @@ func (c *eventServiceClient) GetEvent(ctx context.Context, in *GetEventRequest, 
 	return out, nil
 }
 
-func (c *eventServiceClient) GetEventByCategoryId(ctx context.Context, in *GetEventCategoryRequest, opts ...grpc.CallOption) (*GetEventCategoryResponse, error) {
-	out := new(GetEventCategoryResponse)
+func (c *eventServiceClient) GetEventByCategoryId(ctx context.Context, in *GetEventByCategoryIdRequest, opts ...grpc.CallOption) (*GetEventByCategoryIdResponse, error) {
+	out := new(GetEventByCategoryIdResponse)
 	err := c.cc.Invoke(ctx, "/event.EventService/GetEventByCategoryId", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -110,7 +110,7 @@ type EventServiceServer interface {
 	UpdateEvent(context.Context, *UpdateEventRequest) (*UpdateEventResponse, error)
 	DeleteEvent(context.Context, *DeleteEventRequest) (*DeleteEventResponse, error)
 	GetEvent(context.Context, *GetEventRequest) (*GetEventResponse, error)
-	GetEventByCategoryId(context.Context, *GetEventCategoryRequest) (*GetEventCategoryResponse, error)
+	GetEventByCategoryId(context.Context, *GetEventByCategoryIdRequest) (*GetEventByCategoryIdResponse, error)
 	GetAllEvents(context.Context, *GetAllEventsRequest) (*GetAllEventsResponse, error)
 	GetPrevEvents(context.Context, *GetPrevEventsRequest) (*GetPrevEventsResponse, error)
 	mustEmbedUnimplementedEventServiceServer()
@@ -132,7 +132,7 @@ func (UnimplementedEventServiceServer) DeleteEvent(context.Context, *DeleteEvent
 func (UnimplementedEventServiceServer) GetEvent(context.Context, *GetEventRequest) (*GetEventResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetEvent not implemented")
 }
-func (UnimplementedEventServiceServer) GetEventByCategoryId(context.Context, *GetEventCategoryRequest) (*GetEventCategoryResponse, error) {
+func (UnimplementedEventServiceServer) GetEventByCategoryId(context.Context, *GetEventByCategoryIdRequest) (*GetEventByCategoryIdResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetEventByCategoryId not implemented")
 }
 func (UnimplementedEventServiceServer) GetAllEvents(context.Context, *GetAllEventsRequest) (*GetAllEventsResponse, error) {
@@ -227,7 +227,7 @@ func _EventService_GetEvent_Handler(srv interface{}, ctx context.Context, dec fu
 }
 
 func _EventService_GetEventByCategoryId_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetEventCategoryRequest)
+	in := new(GetEventByCategoryIdRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -239,7 +239,7 @@ func _EventService_GetEventByCategoryId_Handler(srv interface{}, ctx context.Con
 		FullMethod: "/event.EventService/GetEventByCategoryId",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(EventServiceServer).GetEventByCategoryId(ctx, req.(*GetEventCategoryRequest))
+		return srv.(EventServiceServer).GetEventByCategoryId(ctx, req.(*GetEventByCategoryIdRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
