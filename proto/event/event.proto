@@ -11,7 +11,7 @@ service EventService {
     rpc UpdateEvent (UpdateEventRequest) returns (UpdateEventResponse);
     rpc DeleteEvent (DeleteEventRequest) returns (DeleteEventResponse);
     rpc GetEvent (GetEventRequest) returns (GetEventResponse);
-    rpc GetEventCategory (GetEventCategoryRequest) returns (GetEventCategoryResponse);
+    rpc GetEventByCategoryId (GetEventCategoryRequest) returns (GetEventCategoryResponse);
     rpc GetAllEvents (GetAllEventsRequest) returns (GetAllEventsResponse);
     rpc GetPrevEvents (GetPrevEventsRequest) returns (GetPrevEventsResponse);
 }
