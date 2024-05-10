@@ -11,6 +11,7 @@ service EventService {
     rpc UpdateEvent (UpdateEventRequest) returns (UpdateEventResponse);
     rpc DeleteEvent (DeleteEventRequest) returns (DeleteEventResponse);
     rpc GetEvent (GetEventRequest) returns (GetEventResponse);
+    rpc GetEventCategory (GetEventCategoryRequest) returns (GetEventCategoryResponse);
     rpc GetAllEvents (GetAllEventsRequest) returns (GetAllEventsResponse);
     rpc GetPrevEvents (GetPrevEventsRequest) returns (GetPrevEventsResponse);
 }
@@ -23,10 +24,11 @@ message Event {
     string country = 5;
     string city = 6;
     string place = 7;
-    google.protobuf.Timestamp date = 8;
-    int32 ticket_amount = 9;
-    string age = 10;
-    repeated EventCategory categories = 11;
+    string address = 8;
+    google.protobuf.Timestamp date = 9;
+    int32 ticket_amount = 10;
+    string age = 11;
+    repeated EventCategory categories = 12;
 }
 
 message EventCategory {
@@ -43,10 +45,11 @@ message AddEventRequest {
     string country = 3;
     string city = 4;
     string place = 5;
-    google.protobuf.Timestamp date = 6;
-    uint32 ticket_amount = 7;
-    string age = 8;
-    repeated EventCategory categories = 9;
+    string address = 6;
+    google.protobuf.Timestamp date = 7;
+    uint32 ticket_amount = 8;
+    string age = 9;
+    repeated EventCategory categories = 10;
 }
 
 message UpdateEventRequest {
@@ -56,14 +59,19 @@ message UpdateEventRequest {
     string country = 4;
     string city = 5;
     string place = 6;
-    google.protobuf.Timestamp date = 7;
-    uint32 ticket_amount = 8;
-    string age = 9;
-    repeated EventCategory categories = 10;
+    string address = 7;
+    google.protobuf.Timestamp date = 8;
+    uint32 ticket_amount = 9;
+    string age = 10;
+    repeated EventCategory categories = 11;
 }
 
 message GetEventRequest {
     int64 event_id = 1;
+}
+
+message GetEventCategoryRequest {
+    int64 event_category_id = 1;
 }
 
 message DeleteEventRequest {
@@ -92,6 +100,10 @@ message DeleteEventResponse {
 
 message GetEventResponse {
     Event event = 1;
+}
+
+message GetEventCategoryResponse {
+    EventCategory event_category = 1;
 }
 
 message GetAllEventsResponse {

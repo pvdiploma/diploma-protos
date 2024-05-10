@@ -26,6 +26,7 @@ type EventServiceClient interface {
 	UpdateEvent(ctx context.Context, in *UpdateEventRequest, opts ...grpc.CallOption) (*UpdateEventResponse, error)
 	DeleteEvent(ctx context.Context, in *DeleteEventRequest, opts ...grpc.CallOption) (*DeleteEventResponse, error)
 	GetEvent(ctx context.Context, in *GetEventRequest, opts ...grpc.CallOption) (*GetEventResponse, error)
+	GetEventCategory(ctx context.Context, in *GetEventCategoryRequest, opts ...grpc.CallOption) (*GetEventCategoryResponse, error)
 	GetAllEvents(ctx context.Context, in *GetAllEventsRequest, opts ...grpc.CallOption) (*GetAllEventsResponse, error)
 	GetPrevEvents(ctx context.Context, in *GetPrevEventsRequest, opts ...grpc.CallOption) (*GetPrevEventsResponse, error)
 }
@@ -74,6 +75,15 @@ func (c *eventServiceClient) GetEvent(ctx context.Context, in *GetEventRequest, 
 	return out, nil
 }
 
+func (c *eventServiceClient) GetEventCategory(ctx context.Context, in *GetEventCategoryRequest, opts ...grpc.CallOption) (*GetEventCategoryResponse, error) {
+	out := new(GetEventCategoryResponse)
+	err := c.cc.Invoke(ctx, "/event.EventService/GetEventCategory", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *eventServiceClient) GetAllEvents(ctx context.Context, in *GetAllEventsRequest, opts ...grpc.CallOption) (*GetAllEventsResponse, error) {
 	out := new(GetAllEventsResponse)
 	err := c.cc.Invoke(ctx, "/event.EventService/GetAllEvents", in, out, opts...)
@@ -100,6 +110,7 @@ type EventServiceServer interface {
 	UpdateEvent(context.Context, *UpdateEventRequest) (*UpdateEventResponse, error)
 	DeleteEvent(context.Context, *DeleteEventRequest) (*DeleteEventResponse, error)
 	GetEvent(context.Context, *GetEventRequest) (*GetEventResponse, error)
+	GetEventCategory(context.Context, *GetEventCategoryRequest) (*GetEventCategoryResponse, error)
 	GetAllEvents(context.Context, *GetAllEventsRequest) (*GetAllEventsResponse, error)
 	GetPrevEvents(context.Context, *GetPrevEventsRequest) (*GetPrevEventsResponse, error)
 	mustEmbedUnimplementedEventServiceServer()
@@ -120,6 +131,9 @@ func (UnimplementedEventServiceServer) DeleteEvent(context.Context, *DeleteEvent
 }
 func (UnimplementedEventServiceServer) GetEvent(context.Context, *GetEventRequest) (*GetEventResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetEvent not implemented")
+}
+func (UnimplementedEventServiceServer) GetEventCategory(context.Context, *GetEventCategoryRequest) (*GetEventCategoryResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetEventCategory not implemented")
 }
 func (UnimplementedEventServiceServer) GetAllEvents(context.Context, *GetAllEventsRequest) (*GetAllEventsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAllEvents not implemented")
@@ -212,6 +226,24 @@ func _EventService_GetEvent_Handler(srv interface{}, ctx context.Context, dec fu
 	return interceptor(ctx, in, info, handler)
 }
 
+func _EventService_GetEventCategory_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetEventCategoryRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(EventServiceServer).GetEventCategory(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/event.EventService/GetEventCategory",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(EventServiceServer).GetEventCategory(ctx, req.(*GetEventCategoryRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _EventService_GetAllEvents_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(GetAllEventsRequest)
 	if err := dec(in); err != nil {
@@ -270,6 +302,10 @@ var EventService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetEvent",
 			Handler:    _EventService_GetEvent_Handler,
+		},
+		{
+			MethodName: "GetEventCategory",
+			Handler:    _EventService_GetEventCategory_Handler,
 		},
 		{
 			MethodName: "GetAllEvents",
