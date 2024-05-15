@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+package payment;
+
+option go_package = "posokhov.payment.v1;paymentv1";
+
+service PaymentService {
+    rpc PurchaseTicket (PurchaseTicketRequest) returns (PurchaseTicketResponse);
+    rpc SendTicket (SendTicketRequest) returns (SendTicketResponse); 
+}
+
+
+message TicketCategory {
+    int64 event_category_id = 1;
+    uint32 amount = 2;
+}
+
+message PurchaseTicketRequest {
+    int64 widget_id = 1; // must contains info 'bout event id and distributor id 
+    string name = 3;
+    string surname = 4;
+    string patronymic = 5;
+    string email = 6;
+    string phone = 7;
+    repeated TicketCategory categories = 8;
+}
+
+
+
+message PurchaseTicketResponse {
+    int64 id = 1;
+}
+
+
+message SendTicketRequest {
+    int64 ticket_id = 1;
+}
+
+
+message SendTicketResponse {
+    int64 id = 1;
+}
