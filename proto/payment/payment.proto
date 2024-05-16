@@ -28,7 +28,7 @@ message PurchaseTicketRequest {
 
 
 message PurchaseTicketResponse {
-    int64 id = 1;
+    repeated int64 id = 1;
 }
 
 
