@@ -22,7 +22,7 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type DistributorServiceClient interface {
-	UpdateBalance(ctx context.Context, in *UpdateBalanceRequest, opts ...grpc.CallOption) (*UpdateBalanceResponse, error)
+	ReplenishBalance(ctx context.Context, in *ReplenishBalanceRequest, opts ...grpc.CallOption) (*ReplenishBalanceResponse, error)
 	GetBalance(ctx context.Context, in *GetBalanceRequest, opts ...grpc.CallOption) (*GetBalanceResponse, error)
 }
 
@@ -34,9 +34,9 @@ func NewDistributorServiceClient(cc grpc.ClientConnInterface) DistributorService
 	return &distributorServiceClient{cc}
 }
 
-func (c *distributorServiceClient) UpdateBalance(ctx context.Context, in *UpdateBalanceRequest, opts ...grpc.CallOption) (*UpdateBalanceResponse, error) {
-	out := new(UpdateBalanceResponse)
-	err := c.cc.Invoke(ctx, "/distributor.DistributorService/UpdateBalance", in, out, opts...)
+func (c *distributorServiceClient) ReplenishBalance(ctx context.Context, in *ReplenishBalanceRequest, opts ...grpc.CallOption) (*ReplenishBalanceResponse, error) {
+	out := new(ReplenishBalanceResponse)
+	err := c.cc.Invoke(ctx, "/distributor.DistributorService/ReplenishBalance", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -56,7 +56,7 @@ func (c *distributorServiceClient) GetBalance(ctx context.Context, in *GetBalanc
 // All implementations must embed UnimplementedDistributorServiceServer
 // for forward compatibility
 type DistributorServiceServer interface {
-	UpdateBalance(context.Context, *UpdateBalanceRequest) (*UpdateBalanceResponse, error)
+	ReplenishBalance(context.Context, *ReplenishBalanceRequest) (*ReplenishBalanceResponse, error)
 	GetBalance(context.Context, *GetBalanceRequest) (*GetBalanceResponse, error)
 	mustEmbedUnimplementedDistributorServiceServer()
 }
@@ -65,8 +65,8 @@ type DistributorServiceServer interface {
 type UnimplementedDistributorServiceServer struct {
 }
 
-func (UnimplementedDistributorServiceServer) UpdateBalance(context.Context, *UpdateBalanceRequest) (*UpdateBalanceResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method UpdateBalance not implemented")
+func (UnimplementedDistributorServiceServer) ReplenishBalance(context.Context, *ReplenishBalanceRequest) (*ReplenishBalanceResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ReplenishBalance not implemented")
 }
 func (UnimplementedDistributorServiceServer) GetBalance(context.Context, *GetBalanceRequest) (*GetBalanceResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetBalance not implemented")
@@ -84,20 +84,20 @@ func RegisterDistributorServiceServer(s grpc.ServiceRegistrar, srv DistributorSe
 	s.RegisterService(&DistributorService_ServiceDesc, srv)
 }
 
-func _DistributorService_UpdateBalance_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UpdateBalanceRequest)
+func _DistributorService_ReplenishBalance_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ReplenishBalanceRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(DistributorServiceServer).UpdateBalance(ctx, in)
+		return srv.(DistributorServiceServer).ReplenishBalance(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/distributor.DistributorService/UpdateBalance",
+		FullMethod: "/distributor.DistributorService/ReplenishBalance",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DistributorServiceServer).UpdateBalance(ctx, req.(*UpdateBalanceRequest))
+		return srv.(DistributorServiceServer).ReplenishBalance(ctx, req.(*ReplenishBalanceRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -128,8 +128,8 @@ var DistributorService_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*DistributorServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "UpdateBalance",
-			Handler:    _DistributorService_UpdateBalance_Handler,
+			MethodName: "ReplenishBalance",
+			Handler:    _DistributorService_ReplenishBalance_Handler,
 		},
 		{
 			MethodName: "GetBalance",

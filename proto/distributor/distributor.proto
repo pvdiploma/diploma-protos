@@ -5,17 +5,17 @@ package distributor;
 option go_package = "posokhov.distributor.v1;distributorv1";
 
 service DistributorService {
-    rpc UpdateBalance (UpdateBalanceRequest) returns (UpdateBalanceResponse); 
+    rpc ReplenishBalance (ReplenishBalanceRequest) returns (ReplenishBalanceResponse); 
     rpc GetBalance (GetBalanceRequest) returns (GetBalanceResponse);
 }
 
 
-message UpdateBalanceRequest {
+message ReplenishBalanceRequest {
     int64 distributor_id = 1;
-    uint32 balance = 2;
+    uint32 replenishment_amount = 2;
 }
 
-message UpdateBalanceResponse {
+message ReplenishBalanceResponse {
     int64 id = 1;
 }
 
