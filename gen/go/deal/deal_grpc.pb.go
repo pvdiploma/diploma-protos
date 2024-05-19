@@ -27,6 +27,7 @@ type DealsServiceClient interface {
 	RejectDeal(ctx context.Context, in *RejectDealRequest, opts ...grpc.CallOption) (*RejectDealResponse, error)
 	GetSentDeals(ctx context.Context, in *GetSentDealsRequest, opts ...grpc.CallOption) (*GetSentDealsResponse, error)
 	GetProposedDeals(ctx context.Context, in *GetProposedDealsRequest, opts ...grpc.CallOption) (*GetProposedDealsResponse, error)
+	GetDealsByStatus(ctx context.Context, in *GetDealsByStatusRequest, opts ...grpc.CallOption) (*GetDealsByStatusResponse, error)
 }
 
 type dealsServiceClient struct {
@@ -82,6 +83,15 @@ func (c *dealsServiceClient) GetProposedDeals(ctx context.Context, in *GetPropos
 	return out, nil
 }
 
+func (c *dealsServiceClient) GetDealsByStatus(ctx context.Context, in *GetDealsByStatusRequest, opts ...grpc.CallOption) (*GetDealsByStatusResponse, error) {
+	out := new(GetDealsByStatusResponse)
+	err := c.cc.Invoke(ctx, "/deals.DealsService/GetDealsByStatus", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // DealsServiceServer is the server API for DealsService service.
 // All implementations must embed UnimplementedDealsServiceServer
 // for forward compatibility
@@ -91,6 +101,7 @@ type DealsServiceServer interface {
 	RejectDeal(context.Context, *RejectDealRequest) (*RejectDealResponse, error)
 	GetSentDeals(context.Context, *GetSentDealsRequest) (*GetSentDealsResponse, error)
 	GetProposedDeals(context.Context, *GetProposedDealsRequest) (*GetProposedDealsResponse, error)
+	GetDealsByStatus(context.Context, *GetDealsByStatusRequest) (*GetDealsByStatusResponse, error)
 	mustEmbedUnimplementedDealsServiceServer()
 }
 
@@ -112,6 +123,9 @@ func (UnimplementedDealsServiceServer) GetSentDeals(context.Context, *GetSentDea
 }
 func (UnimplementedDealsServiceServer) GetProposedDeals(context.Context, *GetProposedDealsRequest) (*GetProposedDealsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetProposedDeals not implemented")
+}
+func (UnimplementedDealsServiceServer) GetDealsByStatus(context.Context, *GetDealsByStatusRequest) (*GetDealsByStatusResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetDealsByStatus not implemented")
 }
 func (UnimplementedDealsServiceServer) mustEmbedUnimplementedDealsServiceServer() {}
 
@@ -216,6 +230,24 @@ func _DealsService_GetProposedDeals_Handler(srv interface{}, ctx context.Context
 	return interceptor(ctx, in, info, handler)
 }
 
+func _DealsService_GetDealsByStatus_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetDealsByStatusRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DealsServiceServer).GetDealsByStatus(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/deals.DealsService/GetDealsByStatus",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DealsServiceServer).GetDealsByStatus(ctx, req.(*GetDealsByStatusRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // DealsService_ServiceDesc is the grpc.ServiceDesc for DealsService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -242,6 +274,10 @@ var DealsService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetProposedDeals",
 			Handler:    _DealsService_GetProposedDeals_Handler,
+		},
+		{
+			MethodName: "GetDealsByStatus",
+			Handler:    _DealsService_GetDealsByStatus_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

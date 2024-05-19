@@ -4,13 +4,13 @@ package deals;
 
 option go_package = "posokhov.deals.v1;dealsv1";
 
-// Implement that later
 service DealsService {
     rpc OfferDeal (OfferDealRequest) returns (OfferDealResponse);
     rpc AcceptDeal (AcceptDealRequest) returns (AcceptDealResponse);
     rpc RejectDeal (RejectDealRequest) returns (RejectDealResponse);
     rpc GetSentDeals (GetSentDealsRequest) returns (GetSentDealsResponse);
     rpc GetProposedDeals (GetProposedDealsRequest) returns (GetProposedDealsResponse); 
+    rpc GetDealsByStatus (GetDealsByStatusRequest) returns (GetDealsByStatusResponse);
 }
 
 enum DealStatus {
@@ -78,5 +78,14 @@ message GetProposedDealsRequest {
 }
 
 message GetProposedDealsResponse {
+    repeated Deals deals = 1;
+}
+
+message GetDealsByStatusRequest {
+    int64 user_id = 1;
+    DealStatus status = 2;
+}
+
+message GetDealsByStatusResponse {
     repeated Deals deals = 1;
 }
