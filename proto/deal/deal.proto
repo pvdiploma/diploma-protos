@@ -23,16 +23,20 @@ message Deals {
     int64 id = 1;
     int64 sender_id = 2;
     int64 recipient_id = 3;
-    uint32 commission = 4;
-    int64 event_id = 5;
-    DealStatus status = 6;
+    int64 ogranizer_id = 4;
+    int64 distributor_id = 5;
+    uint32 commission = 6;
+    int64 event_id = 7;
+    DealStatus status = 8;
 }
 
 message OfferDealRequest {
     int64 sender_id = 1;
     int64 recipient_id = 2;
-    uint32 commission = 3;
-    int64 event_id = 4;
+    int64 ogranizer_id = 3;
+    int64 distributor_id = 4;
+    uint32 commission = 5;
+    int64 event_id = 6;
 
 }
 
