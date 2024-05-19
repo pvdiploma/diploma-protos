@@ -3,6 +3,12 @@
 version: "3"
 
 tasks:
+  generate_deals:
+    aliases:
+      - gen-deals
+    desc: "Generate golang code from proto"
+    cmds:
+      - protoc -I proto proto/deal/*.proto --go_out=./gen/go --go_opt=paths=source_relative --go-grpc_out=./gen/go --go-grpc_opt=paths=source_relative
   generate_distributor:
     aliases:
       - gen-dist

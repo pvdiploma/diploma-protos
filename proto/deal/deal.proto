@@ -1,0 +1,78 @@
+syntax = "proto3";
+
+package deals;
+
+option go_package = "posokhov.deals.v1;dealsv1";
+
+// Implement that later
+service DealsService {
+    rpc OfferDeal (OfferDealRequest) returns (OfferDealResponse);
+    rpc AcceptDeal (AcceptDealRequest) returns (AcceptDealResponse);
+    rpc RejectDeal (RejectDealRequest) returns (RejectDealResponse);
+    rpc GetSentDeals (GetSentDealsRequest) returns (GetSentDealsResponse);
+    rpc GetProposedDeals (GetProposedDealsRequest) returns (GetProposedDealsResponse); 
+}
+
+enum DealStatus {
+    ACCEPTED = 0;
+    REJECTED = 1;
+    PENDING = 2;
+}
+  
+message Deals {
+    int64 id = 1;
+    int64 sender_id = 2;
+    int64 recipient_id = 3;
+    uint32 commission = 4;
+    int64 event_id = 5;
+    DealStatus status = 6;
+}
+
+message OfferDealRequest {
+    int64 sender_id = 1;
+    int64 recipient_id = 2;
+    uint32 commission = 3;
+    int64 event_id = 4;
+
+}
+
+message OfferDealResponse {
+    int64 id = 1;
+}
+
+
+message AcceptDealRequest {
+    int64 id = 1;
+}
+
+
+message AcceptDealResponse {
+    int64 id = 1;
+}
+
+
+message RejectDealRequest {
+    int64 id = 1;
+}
+
+
+message RejectDealResponse {
+    int64 id = 1;
+}
+
+
+message GetSentDealsRequest {
+    int64 sender_id = 1;
+}
+
+message GetSentDealsResponse {
+    repeated Deals deals = 1;
+}
+
+message GetProposedDealsRequest {
+    int64 recipient_id = 1;
+}
+
+message GetProposedDealsResponse {
+    repeated Deals deals = 1;
+}
