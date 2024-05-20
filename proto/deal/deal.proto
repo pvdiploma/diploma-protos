@@ -11,7 +11,7 @@ service DealsService {
     rpc GetSentDeals (GetSentDealsRequest) returns (GetSentDealsResponse);
     rpc GetProposedDeals (GetProposedDealsRequest) returns (GetProposedDealsResponse); 
     rpc GetDealsByStatus (GetDealsByStatusRequest) returns (GetDealsByStatusResponse);
-    rpc GetDeal (GetDealRequset) returns (GetDealResponse);
+    rpc GetDeal (GetDealRequest) returns (GetDealResponse);
     rpc GetDealWidget (GetDealWidgetRequest) returns (GetDealWidgetResponse);
 }
 
@@ -100,7 +100,7 @@ message GetDealsByStatusResponse {
     repeated Deals deals = 1;
 }
 
-message GetDealRequset {
+message GetDealRequest {
     int64 id = 1;
 }
 

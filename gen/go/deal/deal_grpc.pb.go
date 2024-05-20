@@ -28,7 +28,7 @@ type DealsServiceClient interface {
 	GetSentDeals(ctx context.Context, in *GetSentDealsRequest, opts ...grpc.CallOption) (*GetSentDealsResponse, error)
 	GetProposedDeals(ctx context.Context, in *GetProposedDealsRequest, opts ...grpc.CallOption) (*GetProposedDealsResponse, error)
 	GetDealsByStatus(ctx context.Context, in *GetDealsByStatusRequest, opts ...grpc.CallOption) (*GetDealsByStatusResponse, error)
-	GetDeal(ctx context.Context, in *GetDealRequset, opts ...grpc.CallOption) (*GetDealResponse, error)
+	GetDeal(ctx context.Context, in *GetDealRequest, opts ...grpc.CallOption) (*GetDealResponse, error)
 	GetDealWidget(ctx context.Context, in *GetDealWidgetRequest, opts ...grpc.CallOption) (*GetDealWidgetResponse, error)
 }
 
@@ -94,7 +94,7 @@ func (c *dealsServiceClient) GetDealsByStatus(ctx context.Context, in *GetDealsB
 	return out, nil
 }
 
-func (c *dealsServiceClient) GetDeal(ctx context.Context, in *GetDealRequset, opts ...grpc.CallOption) (*GetDealResponse, error) {
+func (c *dealsServiceClient) GetDeal(ctx context.Context, in *GetDealRequest, opts ...grpc.CallOption) (*GetDealResponse, error) {
 	out := new(GetDealResponse)
 	err := c.cc.Invoke(ctx, "/deals.DealsService/GetDeal", in, out, opts...)
 	if err != nil {
@@ -122,7 +122,7 @@ type DealsServiceServer interface {
 	GetSentDeals(context.Context, *GetSentDealsRequest) (*GetSentDealsResponse, error)
 	GetProposedDeals(context.Context, *GetProposedDealsRequest) (*GetProposedDealsResponse, error)
 	GetDealsByStatus(context.Context, *GetDealsByStatusRequest) (*GetDealsByStatusResponse, error)
-	GetDeal(context.Context, *GetDealRequset) (*GetDealResponse, error)
+	GetDeal(context.Context, *GetDealRequest) (*GetDealResponse, error)
 	GetDealWidget(context.Context, *GetDealWidgetRequest) (*GetDealWidgetResponse, error)
 	mustEmbedUnimplementedDealsServiceServer()
 }
@@ -149,7 +149,7 @@ func (UnimplementedDealsServiceServer) GetProposedDeals(context.Context, *GetPro
 func (UnimplementedDealsServiceServer) GetDealsByStatus(context.Context, *GetDealsByStatusRequest) (*GetDealsByStatusResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetDealsByStatus not implemented")
 }
-func (UnimplementedDealsServiceServer) GetDeal(context.Context, *GetDealRequset) (*GetDealResponse, error) {
+func (UnimplementedDealsServiceServer) GetDeal(context.Context, *GetDealRequest) (*GetDealResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetDeal not implemented")
 }
 func (UnimplementedDealsServiceServer) GetDealWidget(context.Context, *GetDealWidgetRequest) (*GetDealWidgetResponse, error) {
@@ -277,7 +277,7 @@ func _DealsService_GetDealsByStatus_Handler(srv interface{}, ctx context.Context
 }
 
 func _DealsService_GetDeal_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetDealRequset)
+	in := new(GetDealRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -289,7 +289,7 @@ func _DealsService_GetDeal_Handler(srv interface{}, ctx context.Context, dec fun
 		FullMethod: "/deals.DealsService/GetDeal",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DealsServiceServer).GetDeal(ctx, req.(*GetDealRequset))
+		return srv.(DealsServiceServer).GetDeal(ctx, req.(*GetDealRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
