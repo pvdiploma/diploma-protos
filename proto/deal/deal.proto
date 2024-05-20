@@ -11,6 +11,8 @@ service DealsService {
     rpc GetSentDeals (GetSentDealsRequest) returns (GetSentDealsResponse);
     rpc GetProposedDeals (GetProposedDealsRequest) returns (GetProposedDealsResponse); 
     rpc GetDealsByStatus (GetDealsByStatusRequest) returns (GetDealsByStatusResponse);
+    rpc GetDeal (GetDealRequset) returns (GetDealResponse);
+    rpc GetDealWidget (GetDealWidgetRequest) returns (GetDealWidgetResponse);
 }
 
 enum DealStatus {
@@ -19,6 +21,14 @@ enum DealStatus {
     PENDING = 2;
 }
   
+
+message Widget {
+    int64 id = 1;
+    int64 deal_id = 2;
+    string body = 3;
+    string script = 4;
+}
+
 message Deals {
     int64 id = 1;
     int64 sender_id = 2;
@@ -88,4 +98,20 @@ message GetDealsByStatusRequest {
 
 message GetDealsByStatusResponse {
     repeated Deals deals = 1;
+}
+
+message GetDealRequset {
+    int64 id = 1;
+}
+
+message GetDealResponse {
+    Deals deal = 1;
+}
+
+message GetDealWidgetRequest {
+    int64 id = 1;
+}
+
+message GetDealWidgetResponse {
+    Widget widget = 1;
 }
