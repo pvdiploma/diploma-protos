@@ -11,7 +11,22 @@ service TicketService {
     rpc DeleteTicket (DeleteTicketRequest) returns (DeleteTicketResponse);
     rpc ActivateTicket (ActivateTicketRequest) returns (ActivateTicketResponse);
 }
-//todo add message Ticket with extendend fields 
+
+message Ticket {
+    int64 id = 1;
+    int64 event_category_id = 2;
+    string name = 3;
+    string surname = 4;
+    string patronymic = 5;
+    string email = 6;
+    uint32 discount = 7;
+    uint32 total = 8;
+    bytes qr_code = 9;
+    bool is_activated = 10;
+    bytes image_bytes = 11;
+    string image_path = 12;
+
+}
 
 message AddTicketRequest {
     int64 event_id = 1;
@@ -39,9 +54,8 @@ message GetTicketInfoRequest {
     int64 id = 1;
 }
 
-//NOT IMPLEMENTED
 message GetTicketInfoResponse {
-    int64 id = 1; 
+    Ticket ticket = 1; 
 }
 
 message DeleteTicketRequest {
